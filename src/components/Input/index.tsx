@@ -10,15 +10,14 @@ import {
 import { InputProps as props } from './dto'
 
 export const Input: React.FC<props> = ({
-    width,
-    height,
-    icon,
-    customIcon,
     type,
     value,
     setValue,
     inputmode,
-    placeholder
+    placeholder,
+    icon,
+    customIcon,
+    ...rest
 }) => {
     const getIcon = (): React.ReactNode => {
         switch (icon) {
@@ -34,7 +33,9 @@ export const Input: React.FC<props> = ({
     }
 
     return (
-        <InputContainer width={width} height={height}>
+        <InputContainer
+            {...rest}
+        >
             {type === 'password'
                 ? (
                     <IconContainer>

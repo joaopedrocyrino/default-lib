@@ -1,9 +1,14 @@
 export interface ScreenHeaderContainerProps {
-    height?: string | number
+    height: string | number
+    fontSize: string | number
 }
 
-export interface ScreenHeaderProps {
-    height: string | number
+export type ScreenHeaderProps = ScreenHeaderContainerProps & {
     title?: string
     goBack?: () => void
 }
+
+export interface TextProps {
+    padding: boolean
+}
+

@@ -11,17 +11,21 @@ import { ScreenHeaderProps as props } from './dto'
 export const ScreenHeader: React.FC<props> = ({
     height,
     goBack,
-    title
+    title,
+    fontSize
 }) => {
 
     return (
-        <ScreenHeaderContainer height={height}>
+        <ScreenHeaderContainer
+            height={height}
+            fontSize={fontSize}
+        >
             {goBack && (
-                <IconContainer>
+                <IconContainer onClick={goBack}>
                     <FaArrowLeft />
                 </IconContainer>
             )}
-            <Text>{title}</Text>
+            <Text padding={!goBack}>{title}</Text>
         </ScreenHeaderContainer>
     )
 }

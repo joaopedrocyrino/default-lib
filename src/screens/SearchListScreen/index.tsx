@@ -1,36 +1,68 @@
 import React from 'react'
 
+import { List } from '../../layout'
 import { ScreenContainer } from './style'
 import { SearchListScreenProps as props } from './dto'
-import { ScreenHeader, Input } from '../../components'
-import { List } from '../../layout'
+import { ScreenHeader, SearchInput } from '../../components'
 
-export const SearchListScreen: React.FC<props> = ({ 
+export const SearchListScreen: React.FC<props> = ({
     children,
-     goBack, 
-     title,
-     search,
-     setSearch
-    }) => {
-    const headerHeight = 50
+    goBack,
+    title,
+    placeholder,
+    onSearch,
+    theme,
+    themeVariables
+}) => {
     const inputHeight = 40
 
     return (
-        <ScreenContainer>
+        <ScreenContainer
+            fontSize={themeVariables.fontSize}
+            theme={theme}
+            themeColors={{
+                light: {
+                    background: themeVariables.light.background,
+                    color: themeVariables.light.color
+                },
+                dark: themeVariables.dark
+                    ? {
+                        background: themeVariables.dark.background,
+                        color: themeVariables.dark.color
+                    }
+                    : undefined
+            }}
+        >
             <ScreenHeader
-                height={headerHeight}
+                fontSize={themeVariables.headerFontSize}
+                height={themeVariables.headerHeight}
                 title={title}
                 goBack={goBack}
             />
-            <Input
-                placeholder='Buscar...'
+            <SearchInput
                 height={inputHeight}
-                setValue={setSearch}
-                inputmode='search'
-                value={search}
-                icon='search'
+                width='90%'
+                onSearch={onSearch}
+                placeholder={placeholder}
+                themeColors={{
+                    light: {
+                        background: themeVariables.light.inputBackground,
+                        color: themeVariables.light.color,
+                        border: themeVariables.light.inputBorder
+                    },
+                    dark: themeVariables.dark
+                        ? {
+                            background: themeVariables.dark.inputBackground,
+                            color: themeVariables.dark.color,
+                            border: themeVariables.dark.inputBorder
+                        }
+                        : undefined
+                }}
             />
-            <List height={`calc(100% - ${headerHeight + inputHeight + 20}px)`}>
+            <List
+                width='90%'
+                height={`calc(100% - ${themeVariables.headerHeight + inputHeight + 20}px)`}
+            >
                 {children}
             </List>
         </ScreenContainer>
