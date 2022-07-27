@@ -40,6 +40,6 @@ SearchListScreen.args = {
         },
         headerHeight: 50,
         headerFontSize: 18,
-        fontSize: 15
+        fontSize: 18
     }
 };

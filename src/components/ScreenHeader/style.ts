@@ -12,6 +12,7 @@ export const ScreenHeaderContainer = styled.div<ScreenHeaderContainerProps>`
         ? props.fontSize
         : `${props.fontSize}px`};
     align-items: center;
+    font-weight: 600;
 `
 
 export const IconContainer = styled.div`

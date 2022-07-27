@@ -1,9 +1,6 @@
 import React from 'react'
 
-// import { List } from '../../layout'
-// import { ScreenContainer } from './style'
 import { DentalAppointmentProps as props } from './dto'
-// import { ScreenHeader, SearchInput } from '../../components'
 import { DentalAppointmentProvider, useDentalAppointmentProvider } from './provider'
 import SelectDentist from './selectDentist'
 

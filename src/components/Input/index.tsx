@@ -61,6 +61,7 @@ export const Input: React.FC<props> = ({
                 value={value}
                 onChange={e => setValue(e.target.value)}
                 placeholder={placeholder}
+                onClick={e => e.preventDefault()}
             />
         </InputContainer>
     )

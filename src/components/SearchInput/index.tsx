@@ -27,7 +27,6 @@ export const SearchInput: React.FC<Omit<InputProps, 'placeholder' | 'value' | 's
             {...inputProps}
             placeholder={placeholder ?? 'Buscar...'}
             setValue={setSearch}
-            inputmode='search'
             value={search}
             icon='search'
         />
