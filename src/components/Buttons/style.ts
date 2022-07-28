@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Button = styled.button<Props>`
-  width: ${props => props.width || 200}px;
+  width: ${props => props.width ? `${props.width}px` : 100}%;
   height: ${props => props.height || 80}px;
   background-color: ${props => props.theme === 'dark' ? props.themeColor.dark?.backgroundColor : props.themeColor.light?.backgroundColor};
   color: ${props => props.theme === 'dark' ? props.themeColor.dark?.color : props.themeColor.light?.color};
@@ -18,12 +18,12 @@ interface Props {
     dark?: {
       backgroundColor: string
       color: string
-      borderColor: string
+      borderColor?: string
     }
     light?: {
       backgroundColor: string
       color: string
-      borderColor: string
+      borderColor?: string
     }
   }
   borderRadius?: number

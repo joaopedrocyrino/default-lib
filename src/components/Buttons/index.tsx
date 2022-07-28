@@ -8,17 +8,17 @@ export const Button: React.FC<ButtonProps> = (props) => {
 }
 
 export interface ButtonProps {
-  theme: 'dark' | 'light'
+  theme?: 'dark' | 'light'
   themeColor: {
     dark?: {
       backgroundColor: string
       color: string
-      borderColor: string
+      borderColor?: string
     }
     light?: {
       backgroundColor: string
       color: string
-      borderColor: string
+      borderColor?: string
     }
   }
   width?: number

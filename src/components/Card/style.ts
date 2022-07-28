@@ -24,4 +24,5 @@ export const CardContainer = styled.div<CardContainerProps>`
     border: 1px solid ${props => props.theme === 'dark'
         ? props.themeColors.dark?.border ?? 'transparent'
         : props.themeColors.light.border ?? 'transparent'};
+    box-sizing: border-box;
 `

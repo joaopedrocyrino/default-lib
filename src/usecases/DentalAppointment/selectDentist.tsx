@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Card } from '../../components'
+import { Card, SelectDentistCard } from '../../components'
 import { SearchListScreen } from '../../screens'
 import { useDentalAppointmentProvider } from './provider'
 import { Dentists } from './dto'
@@ -60,7 +60,24 @@ const SelectDentist: React.FC = () => {
         >
             {dentists.map((d, i) => {
                 return (
-                    <Card
+                    // <Card
+                    //     key={i}
+                    // themeColors={{
+                    //     light: { background: themeVariables.light.backgroundTwo },
+                    //     dark: themeVariables.dark
+                    //         ? { background: themeVariables.dark.backgroundTwo, }
+                    //         : undefined
+                    // }}
+                    //     height={350}
+                    // >
+                    //     {d.name}
+                    //     {d.next}
+                    //     <button onClick={() => {
+                    //         setDentistId(d.id)
+                    //         setScreens('selectDate')
+                    //     }}>set</button>
+                    // </Card>
+                    <SelectDentistCard
                         key={i}
                         themeColors={{
                             light: { background: themeVariables.light.backgroundTwo },
@@ -68,15 +85,7 @@ const SelectDentist: React.FC = () => {
                                 ? { background: themeVariables.dark.backgroundTwo, }
                                 : undefined
                         }}
-                        height={350}
-                    >
-                        {d.name}
-                        {d.next}
-                        <button onClick={() => {
-                            setDentistId(d.id)
-                            setScreens('selectDate')
-                        }}>set</button>
-                    </Card>
+                    />
                 )
             })}
         </SearchListScreen>
