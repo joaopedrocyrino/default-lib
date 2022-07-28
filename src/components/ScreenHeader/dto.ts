@@ -1,14 +1,21 @@
-export interface ScreenHeaderContainerProps {
-    height: string | number
-    fontSize: string | number
-}
+import { styledComponentUtils } from '../../utils'
+import { ContainerProps } from '../../layout'
 
-export type ScreenHeaderProps = ScreenHeaderContainerProps & {
+export interface Props extends ContainerProps {
     title?: string
     goBack?: () => void
 }
 
-export interface TextProps {
-    padding: boolean
-}
+// ======= STYLED COMPONENTS DTO ========== //
 
+// export interface TextProps {
+//     padding: boolean
+// }
+
+// export interface ContainerProps {
+//     height?: string | number
+//     fontSize?: string | number
+//     boxShaddow?: styledComponentUtils.boxShaddowId
+//     background?: string
+//     color?: string
+// }

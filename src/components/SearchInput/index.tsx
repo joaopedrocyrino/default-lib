@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { SearchInputProps as props } from './dto'
-import { Input, InputProps } from '../Input'
+import { Props } from './dto'
+import { Input } from '../Input'
 
 export const SearchInput: React.FC<Omit<InputProps, 'placeholder' | 'value' | 'setValue'> & props> = ({
     onSearch,

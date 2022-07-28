@@ -1,30 +1,36 @@
 import styled from 'styled-components'
 
-import { ScreenHeaderContainerProps, TextProps } from './dto'
+import { styledComponentUtils } from '../../utils'
+import { constants } from '../../styles'
+import { ContainerProps, TextProps } from './dto'
 
-export const ScreenHeaderContainer = styled.div<ScreenHeaderContainerProps>`
+const { stringOrNumber, idToBoxShaddow } = styledComponentUtils
+const { screenHeaderHeight } = constants
+
+const FlexBox = styled.div`
     width: 100%;
-    height: ${props => typeof props.height === 'string'
-        ? props.height
-        : `${props.height}px`};
-    display: flex;
-    font-size: ${props => typeof props.fontSize === 'string'
-        ? props.fontSize
-        : `${props.fontSize}px`};
-    align-items: center;
-    font-weight: 600;
-`
-
-export const IconContainer = styled.div`
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
+`
+
+export const Container = styled(FlexBox)<ContainerProps>`
+    font-weight: 700;
+
+    ${props => props.color ? `color: ${props.color};`  : ''}
+    ${props => props.background ? `background-color: ${props.background};`  : ''}
+    font-size: ${props => props.fontSize ? stringOrNumber(props.fontSize) : '19px'};
+    box-shadow: ${props => props.boxShaddow ? idToBoxShaddow(props.boxShaddow) : 'none'};
+    height: ${props => props.height ? stringOrNumber(props.height) : `${screenHeaderHeight}px`};
+`
+
+export const Icon = styled(FlexBox)`
     flex: 2;
     max-width: 60px;
 `
 
-export const Text = styled.p<TextProps>`
+export const Title = styled.p<TextProps>`
     padding-left: ${props => props.padding ? '10px' : '0px'};
     flex: 10;
 `

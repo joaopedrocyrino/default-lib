@@ -2,22 +2,21 @@ import React from 'react'
 import { FaKey, FaUser, FaSearch } from 'react-icons/fa'
 import { MdEmail } from 'react-icons//md'
 
-import {
-    InputContainer,
-    IconContainer,
-    Input as StyledInput
-} from './style'
-import { InputProps as props } from './dto'
+import { Container } from '../../layout'
+import { IconContainer, Input as StyledInput } from './style'
+import { Props } from './dto'
 
-export const Input: React.FC<props> = ({
-    type,
-    value,
-    setValue,
-    inputmode,
+export const Input: React.FC<Props> = ({
     placeholder,
+    value,
+    fontSize,
+    type,
+    inputmode,
     icon,
     customIcon,
-    ...rest
+    setValue,
+    disabled,
+    ...containerProps
 }) => {
     const getIcon = (): React.ReactNode => {
         switch (icon) {
@@ -33,38 +32,36 @@ export const Input: React.FC<props> = ({
     }
 
     return (
-        <InputContainer
-            {...rest}
+        <Container
+            {...containerProps}
+            justify='center'
         >
-            {type === 'password'
-                ? (
-                    <IconContainer>
-                        <FaKey />
-                    </IconContainer>
-                )
-                : icon
-                    ? (
-                        <IconContainer>
-                            {getIcon()}
-                        </IconContainer>
-                    )
-                    : customIcon
-                        ? (
-                            <IconContainer>
-                                {customIcon}
-                            </IconContainer>
-                        )
-                        : null}
+            {type === 'password' && (
+                <IconContainer>
+                    <FaKey />
+                </IconContainer>
+            )}
+            {icon && (
+                <IconContainer>
+                    {getIcon()}
+                </IconContainer>
+            )}
+            {customIcon && (
+                <IconContainer>
+                    {customIcon}
+                </IconContainer>
+            )}
             <StyledInput
                 type={type}
-                inputMode={inputmode}
                 value={value}
-                onChange={e => setValue(e.target.value)}
+                inputMode={inputmode}
                 placeholder={placeholder}
                 onClick={e => e.preventDefault()}
+                onChange={e => setValue(e.target.value)}
+                disabled={disabled}
             />
-        </InputContainer>
+        </Container>
     )
 }
 
-export type InputProps = props
+export type InputProps = Props

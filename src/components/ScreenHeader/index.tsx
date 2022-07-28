@@ -1,33 +1,26 @@
 import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 
-import {
-    ScreenHeaderContainer,
-    IconContainer,
-    Text
-} from './style'
-import { ScreenHeaderProps as props } from './dto'
+import { Container } from '../../layout'
+import { Icon, Title } from './style'
+import { Props } from './dto'
 
-export const ScreenHeader: React.FC<props> = ({
-    height,
+export const ScreenHeader: React.FC<Props> = ({
     goBack,
     title,
-    fontSize
+    ...containerProps
 }) => {
 
     return (
-        <ScreenHeaderContainer
-            height={height}
-            fontSize={fontSize}
-        >
+        <Container {...containerProps}>
             {goBack && (
-                <IconContainer onClick={goBack}>
+                <Icon onClick={goBack}>
                     <FaArrowLeft />
-                </IconContainer>
+                </Icon>
             )}
-            <Text padding={!goBack}>{title}</Text>
-        </ScreenHeaderContainer>
+            <Title padding={!goBack}>{title}</Title>
+        </Container>
     )
 }
 
-export type ScreenHeaderProps = props
+export type ScreenHeaderProps = Props
