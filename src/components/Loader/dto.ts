@@ -1,10 +1,6 @@
-import { styledComponentUtils } from '../../utils'
+import { pallete } from '../../dto'
 
 export interface Props {
-    size?: string | number
-    pallete?: [
-        styledComponentUtils.colorPalleteId,
-        styledComponentUtils.colorPalleteIntensityId
-    ] 
-    | [styledComponentUtils.colorPalleteId]
+    size?: number
+    pallete?: pallete
 }

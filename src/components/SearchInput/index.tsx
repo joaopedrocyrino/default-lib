@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Props } from './dto'
 import { Input } from '../Input'
 
-export const SearchInput: React.FC<Omit<InputProps, 'placeholder' | 'value' | 'setValue'> & props> = ({
+export const SearchInput: React.FC<Props> = ({
     onSearch,
     placeholder,
     timeout,
@@ -33,4 +33,4 @@ export const SearchInput: React.FC<Omit<InputProps, 'placeholder' | 'value' | 's
     )
 }
 
-export type SearchInputProps = InputProps & props
+export type SearchInputProps = Props

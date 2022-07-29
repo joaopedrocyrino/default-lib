@@ -1,13 +1,13 @@
 import React from 'react'
 import { Meta, Story } from '@storybook/react'
 
-import { Usecases } from '../../src'
+import { Usecases } from '../../../src'
 
 const DentalAppointmentComponent = Usecases.DentalAppointment
 type props = Usecases.DentalAppointmentProps
 
 const meta: Meta = {
-    title: 'Dental Appointment',
+    title: 'USECASES/dental/Dental Appointment',
     component: DentalAppointmentComponent,
     argTypes: {},
     parameters: {

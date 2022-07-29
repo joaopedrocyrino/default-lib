@@ -1,29 +1,28 @@
 import React from 'react'
-import ButtonStyle from './style'
 
-export const Button: React.FC<ButtonProps> = (props) => {
+import { Loader } from '../Loader'
+import ButtonStyle from './style'
+import { Props } from './dto'
+import { colors } from '../../styles/constants'
+
+export const Button: React.FC<Props> = ({ children, disabled, loading, ...props }) => {
   return (
-    <ButtonStyle {...props} />
+    <ButtonStyle
+      {...props}
+      disabled={disabled || loading}
+    >
+      {loading ?
+        <Loader
+          size={20}
+          pallete={props.dark
+            ? colors.text[1].light
+            : colors.text[1].dark
+          }
+        />
+        : children
+      }
+    </ButtonStyle>
   )
 }
 
-export interface ButtonProps {
-  theme?: 'dark' | 'light'
-  themeColor: {
-    dark?: {
-      backgroundColor: string
-      color: string
-      borderColor?: string
-    }
-    light?: {
-      backgroundColor: string
-      color: string
-      borderColor?: string
-    }
-  }
-  width?: number
-  height?: number
-  borderRadius?: number
-  border?: number
-  children: any
-}
+export type ButtonProps = Props

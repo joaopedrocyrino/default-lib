@@ -1,12 +1,6 @@
+import { InputProps } from '../Input'
 
-
-export interface Props extends InputProps {
+export interface Props extends Omit<InputProps, 'value' | 'setValue'> {
     onSearch: (s: string) => Promise<void> | void
     timeout?: number
 }
-
-export interface InputProps {
-    placeholder?: string
-}
-
-type t = Omit<InputProps, 'placeholder' | 'value' | 'setValue'>

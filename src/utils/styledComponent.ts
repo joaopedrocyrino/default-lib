@@ -1,4 +1,12 @@
 import { constants } from '../styles'
+import {
+    pallete,
+    palleteId,
+    palleteIntensityId,
+    boxShaddowId,
+    backgroundId,
+    textId
+} from '../dto'
 
 export const stringOrNumber = (value: string | number) => {
     let res = `${value}`
@@ -9,8 +17,6 @@ export const stringOrNumber = (value: string | number) => {
 
     return res
 }
-
-export type boxShaddowId = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6
 
 export const boxShaddowFormatter = (bs?: string | boxShaddowId) => {
     if (bs) {
@@ -28,8 +34,6 @@ export const idToBoxShaddow = (id: boxShaddowId) => {
     return boxShaddow[id + 1]
 }
 
-export type backgroundId = 1 | 2 | 3 | 4 | 5 | 6 | 7
-
 export const backgroundFormatter = (props: { dark?: boolean, background?: string | backgroundId }): string => {
     const background = props.background
 
@@ -41,7 +45,6 @@ export const backgroundFormatter = (props: { dark?: boolean, background?: string
     } else { return colors.background[background ?? 1].light }
 }
 
-export type textId = 1 | 2 | 3
 
 export const textFormatter = (props: {
     dark?: boolean,
@@ -75,16 +78,18 @@ export const borderFormatter = (props: {
     return 'none'
 }
 
-export type colorPalleteId = 1 | 2 | 3 | 4
-export type colorPalleteIntensityId = 0 | 1 | 2 | 3 | 4 | 5
-
-export const palleteFormatter = (
-    color?: string | colorPalleteId,
-    instensity?: colorPalleteIntensityId
-): string => {
+export const palleteFormatter = (pallet?: pallete): string => {
     const { colors } = constants
 
-    if (typeof color === 'string') { return color }
+    let color: palleteId = 1
+    let intensity: palleteIntensityId = 0
 
-    return colors.colorPalletes[color ?? 1][instensity ?? 0]
+    if (typeof pallet === 'string') { return pallet }
+
+    if (pallet) {
+        color = pallet[0]
+        if (pallet[1]) { intensity = pallet[1] }
+    }
+
+    return colors.colorPalletes[color][intensity]
 }

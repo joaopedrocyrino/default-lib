@@ -3,12 +3,12 @@ import { Meta, Story } from '@storybook/react'
 
 import { Screens, Components } from '../../src'
 
-const LoaderComponent = Components.Loader
-type props = Components.LoaderProps
+const LoginScreen = Screens.Login
+type props = Screens.LoginProps
 
 const meta: Meta = {
-    title: 'screens/Search List Screen',
-    component: LoaderComponent,
+    title: 'screens/ Login screen',
+    component: LoginScreen,
     argTypes: {},
     parameters: {
         controls: { expanded: true },
@@ -18,8 +18,8 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<props> = args =>
-    <div style={{ width: '100vw', height: '100vh',  }}>
-        <LoaderComponent pallete={[2, 5]} {...args} />
+    <div style={{ width: '100vw', height: '100vh', }}>
+        <LoginScreen pallete={[2]} />
     </div>
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

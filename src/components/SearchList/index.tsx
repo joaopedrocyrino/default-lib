@@ -1,26 +1,32 @@
 import React from 'react'
 
-import { SearchInput } from '../../components'
-import { Container } from './style'
+import { SearchInput } from '../SearchInput'
+import { Container, Scroll } from '../../layout'
 import { Props } from './dto'
 
-export const ScreenHeader: React.FC<Props> = ({
+export const SearchList: React.FC<Props> = ({
     children,
-    inputWidth,
-    color,
-    background,
-    placeholder,
+    scroll,
+    search,
     ...containerProps
 }) => {
+    const { height: inputHeight, ...restSearch } = search
+    const { height: scrollHeight, ...restScroll } = scroll
+
     return (
         <Container {...containerProps}>
             <SearchInput
-                height={inputWidth ?? 40}
-                onSearch={onSearch}
-                placeholder={placeholder}
+                height={inputHeight ?? 40}
+                {...restSearch}
             />
+            <Scroll
+                height={scrollHeight ?? 'calc(100% - 50px)'}
+                {...restScroll}
+            >
+                {children}
+            </Scroll>
         </Container>
     )
 }
 
-export type ScreenHeaderProps = Props
+export type SearchListProps = Props

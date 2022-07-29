@@ -2,7 +2,7 @@ import React from 'react'
 import { FaArrowLeft } from 'react-icons/fa'
 
 import { Container } from '../../layout'
-import { Icon, Title } from './style'
+import { Title } from './style'
 import { Props } from './dto'
 
 export const ScreenHeader: React.FC<Props> = ({
@@ -14,9 +14,14 @@ export const ScreenHeader: React.FC<Props> = ({
     return (
         <Container {...containerProps}>
             {goBack && (
-                <Icon onClick={goBack}>
+                <Container
+                    onClick={goBack}
+                    justify='center'
+                    maxWidth={60}
+                    flex={2}
+                >
                     <FaArrowLeft />
-                </Icon>
+                </Container>
             )}
             <Title padding={!goBack}>{title}</Title>
         </Container>

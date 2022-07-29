@@ -1,21 +1,30 @@
 import React from 'react'
 
 import { ScreenHeader } from '../../components'
-import { Container, Content } from './style'
+import { Container } from '../../layout'
 import { Props } from './dto'
+import { constants } from '../../styles'
+
+const { screenHeaderHeight } = constants
 
 export const Screen: React.FC<Props> = ({
     children,
-    header
+    header,
+    ...props
 }) => {
-    const headerOpts = typeof header === 'boolean' ? {} : header
-
     return (
-        <Container>
-            {!!header && <ScreenHeader {...headerOpts} />}
-            <Content header={!!header}>
+        <Container {...props}>
+            {!!header && <ScreenHeader {...(typeof header === 'boolean' ? {} : header)} />}
+            <Container
+                padding='5vw'
+                height={`calc(100% - ${!!header
+                    ? `${screenHeaderHeight}px`
+                    : '0px'
+                    })`}
+                    
+            >
                 {children}
-            </Content>
+            </Container>
         </Container>
     )
 }

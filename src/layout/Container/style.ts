@@ -14,6 +14,11 @@ const {
 export const Container = styled.div<Props>`
     width: ${props => props.width ? stringOrNumber(props.width) : '100%'};
     height: ${props => props.height ? stringOrNumber(props.height) : '100%'};
+    ${props => props.maxHeight ? `max-height: ${stringOrNumber(props.maxHeight)};` : ''}
+    ${props => props.maxWidth ? `max-width: ${stringOrNumber(props.maxWidth)};` : ''}
+    ${props => props.minHeight ? `min-height: ${stringOrNumber(props.minHeight)};` : ''}
+    ${props => props.minWidth ? `min-width: ${stringOrNumber(props.minWidth)};` : ''}
+    font-size: ${props => props.fontSize ? stringOrNumber(props.fontSize) : '16px'};
     position: relative;
     box-shadow: ${props => boxShaddowFormatter(props.boxShaddow)};
     border-radius: ${props => props.borderRadius
@@ -34,7 +39,7 @@ export const Container = styled.div<Props>`
     display: ${props => props.scroll ? 'block' : props.display ?? 'flex'};
     flex-direction: ${props => props.flexDirection ?? 'column'};
     align-items: ${props => props.align ?? 'center'};
-    ${props => props.justify ? `justify-content: ${props.justify}` : ''};
+    ${props => props.justify ? `justify-content: ${props.justify};` : ''}
     overflow-y: ${props => props.scroll
         ? props.flexDirection === 'row'
             ? 'hidden'
@@ -45,4 +50,8 @@ export const Container = styled.div<Props>`
             ? 'scroll'
             : 'hidden'
         : 'hidden'};
+    ${props => props.flex ? `flex: ${props.flex};` : ''}
+    ${props => props.flex ? `flex: ${props.flex};` : ''}
+    ${props => props.padding ? `padding: ${stringOrNumber(props.padding)};` : ''}
+    ${props => props.gap ? `gap: ${stringOrNumber(props.gap)};` : ''}
 `
