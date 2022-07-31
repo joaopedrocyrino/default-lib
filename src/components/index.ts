@@ -1,4 +1,10 @@
+export * from './Text'
 export * from './Buttons'
+export * from './ThemeChanger'
+export * from './PickDate'
+export * from './Agenda'
+
+
 export * from './Input'
 export * from './ScreenHeader'
 export * from './SearchInput'

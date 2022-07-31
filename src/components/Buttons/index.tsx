@@ -1,23 +1,24 @@
 import React from 'react'
 
+import { useTheme } from '../../providers'
 import { Loader } from '../Loader'
 import ButtonStyle from './style'
 import { Props } from './dto'
-import { colors } from '../../styles/constants'
 
-export const Button: React.FC<Props> = ({ children, disabled, loading, ...props }) => {
+export const Button: React.FC<Props> = ({ children, disabled, loading, background, ...props }) => {
+  const theme = useTheme()
+
   return (
     <ButtonStyle
-      {...props}
       disabled={disabled || loading}
+      background={background ?? theme.pallete[0]}
+      dark={theme.dark}
+      {...props}
     >
       {loading ?
         <Loader
           size={20}
-          pallete={props.dark
-            ? colors.text[1].light
-            : colors.text[1].dark
-          }
+          pallete={['background', 0, theme.dark]}
         />
         : children
       }

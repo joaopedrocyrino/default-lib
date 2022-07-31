@@ -1,30 +1,46 @@
 import React from 'react'
 
 import { LoaderProps } from '../../components'
-import { backgroundId, boxShaddowId, textId } from '../../dto'
+import { color, shaddow } from '../../dto/styles'
 
-export interface Props extends React.HTMLAttributes<HTMLDivElement> {
+export interface Props extends React.HTMLAttributes<HTMLDivElement>, Omit<ContainerProps, 'dark'> {
+    loading?: boolean | LoaderProps
+}
+
+export interface ContainerProps {
     width?: string | number
-    height?: string | number
-    padding?: string | number
-    maxHeight?: string | number
     maxWidth?: string | number
-    minHeight?: string | number
     minWidth?: string | number
-    display?: string
+
+    height?: string | number
+    maxHeight?: string | number
+    minHeight?: string | number
+
+    fontSize?: string | number
+    text?: color
+    dark?: boolean
+
+    display?: 'flex' | 'block' | 'none'
+    scroll?: boolean
+
     flexDirection?: 'row' | 'column'
     justify?: 'space-between' | 'center' | 'space-around'
-    gap?: string | number
     align?: 'center' | 'flex-start' | 'flex-end' | 'stretch'
-    dark?: boolean
-    borderRadius?: string | number
-    text?: string | textId
-    border?: string | backgroundId
-    boxShaddow?: string | boxShaddowId
-    background?: string | backgroundId
-    scroll?: boolean
-    loading?: boolean | LoaderProps
-    fontSize?: string | number
+    gap?: string | number
     flex?: number
-    children: any
+
+    borderRadius?: string | number
+    border?: string | color
+
+    boxShaddow?: shaddow
+
+    background?: color
+
+    position?: 'relative' | 'absolute' | 'fixed'
+    top?: string | number
+    bottom?: string | number
+    left?: string | number
+    right?: string | number
+
+    zIndex?: number;
 }

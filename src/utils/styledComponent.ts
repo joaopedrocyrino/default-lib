@@ -1,95 +1,38 @@
-import { constants } from '../styles'
-import {
-    pallete,
-    palleteId,
-    palleteIntensityId,
-    boxShaddowId,
-    backgroundId,
-    textId
-} from '../dto'
+import { constants } from '../constants'
+import { color, shaddow } from '../dto/styles'
 
-export const stringOrNumber = (value: string | number) => {
-    let res = `${value}`
+export const palleteToColor = (p?: color): string => {
+    if (typeof p === 'string') { return p }
 
-    if (typeof value === 'number') {
-        res += 'px'
+    if (Array.isArray(p)) {
+        // @ts-ignore
+        if (p[0] === 'colorPalletes') { return constants.colors[p[0]][p[1]][p[2] ?? 0] }
+        // @ts-ignore
+        return constants.colors[p[0]][p[1]][p[2] ? 'dark' : 'light']
     }
+
+    return constants.colors.colorPalletes[1][p ?? 0]
+
+}
+
+export const stringOrNumber = (value?: string | number, field?: string) => {
+    let res: string | undefined = undefined
+
+    if (value) { res = `${value}` }
+
+    if (typeof value === 'number') { res += 'px' }
+
+    if (field) { return res ? `${field}: ${res};` : '' }
 
     return res
 }
 
-export const boxShaddowFormatter = (bs?: string | boxShaddowId) => {
+export const idToBoxSaddow = (bs?: shaddow): string => {
+    if (typeof bs === 'string') { return bs }
+
     if (bs) {
-        if (typeof bs === 'string') { return bs }
-
-        return idToBoxShaddow(bs)
+        return constants.boxShaddow[bs + 1]
     }
 
     return 'none'
-}
-
-export const idToBoxShaddow = (id: boxShaddowId) => {
-    const { boxShaddow } = constants
-
-    return boxShaddow[id + 1]
-}
-
-export const backgroundFormatter = (props: { dark?: boolean, background?: string | backgroundId }): string => {
-    const background = props.background
-
-    if (typeof background === 'string') { return background }
-    const { colors } = constants
-
-    if (props.dark) {
-        return colors.background[background ?? 1].dark
-    } else { return colors.background[background ?? 1].light }
-}
-
-
-export const textFormatter = (props: {
-    dark?: boolean,
-    color?: string | textId
-}): string => {
-    const color = props.color
-
-    if (typeof color === 'string') { return color }
-    const { colors } = constants
-
-    if (props.dark) {
-        return colors.text[color ?? 1].dark
-    } else { return colors.text[color ?? 1].light }
-}
-
-export const borderFormatter = (props: {
-    dark?: boolean,
-    color?: string | backgroundId
-}): string => {
-    const color = props.color
-    const { colors } = constants
-
-    if (color) {
-        if (typeof color === 'string') { return color }
-
-        if (props.dark) {
-            return colors.background[color].dark
-        } else { return colors.background[color].light }
-    }
-
-    return 'none'
-}
-
-export const palleteFormatter = (pallet?: pallete): string => {
-    const { colors } = constants
-
-    let color: palleteId = 1
-    let intensity: palleteIntensityId = 0
-
-    if (typeof pallet === 'string') { return pallet }
-
-    if (pallet) {
-        color = pallet[0]
-        if (pallet[1]) { intensity = pallet[1] }
-    }
-
-    return colors.colorPalletes[color][intensity]
 }

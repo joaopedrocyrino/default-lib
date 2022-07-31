@@ -1,33 +1,34 @@
 import React, { useState } from 'react'
 
-import { Input, Button } from '../../components'
-import { useNotify } from '../../providers'
+import { useNotify, useTheme, useAuth, useRouter } from '../../providers'
+import { Input, Button, ThemeChanger } from '../../components'
 import { Container } from '../../layout'
+import { Screen } from '../Screen'
 import { Props } from './dto'
 
 export const Login: React.FC<Props> = ({
     email,
     boxShaddow,
-    pallete,
     background,
     inputBackground,
-    dark,
     placeholder,
     onLogin,
     forgotPassword
 }) => {
     const [user, setUser] = useState<string>('')
     const [password, setPassword] = useState<string>('')
-    const [loading, setLoading] = useState<boolean>()
+    const [loading, setLoading] = useState<boolean>(false)
     const { notify } = useNotify()
+    const { dark, pallete } = useTheme()
+    const { setToken } = useAuth()
+    const { setPath } = useRouter()
 
-    const containerProps = { background, dark }
+    const containerProps = { background }
     const inputProps = {
-        background: inputBackground ?? background ?? 2,
+        background: inputBackground,
+        borderRadius: 6,
         height: 50,
-        boxShaddow,
-        dark,
-        pallete,
+        boxShaddow
     }
 
     const login = () => {
@@ -35,6 +36,10 @@ export const Login: React.FC<Props> = ({
             setLoading(true)
 
             onLogin(user, password)
+                .then(token => { 
+                    setToken(token)
+                    setPath('home')
+                 })
                 .catch(() => notify('Erro ao logar. Tente novamente'))
                 .finally(() => setLoading(false))
         } else {
@@ -43,16 +48,13 @@ export const Login: React.FC<Props> = ({
     }
 
     return (
-        <Container
-            {...containerProps}
-            justify='center'
-        >
+        <Screen {...containerProps} justify='center'>
             <Container
                 justify='center'
                 height={450}
                 width='90%'
                 maxWidth={400}
-                gap={25}
+                gap={30}
                 {...containerProps}
             >
                 <Input
@@ -73,12 +75,10 @@ export const Login: React.FC<Props> = ({
                 {forgotPassword && (
                     <Container {...containerProps} height={20} align='flex-end'>
                         <Button
-                            pallete={pallete}
-                            dark={dark}
-                            mode={3}
-                            fontSize={12}
-                            width='fit-content'
+                            background={['background', 0, dark]}
                             onClick={forgotPassword}
+                            width='fit-content'
+                            text={pallete[0]}
                         >
                             Esqueceu a senha?
                         </Button>
@@ -86,15 +86,15 @@ export const Login: React.FC<Props> = ({
                 )}
                 <Button
                     height={50}
-                    pallete={pallete}
-                    dark={dark}
                     loading={loading}
                     onClick={login}
+                    borderRadius={6}
                 >
                     Login
                 </Button>
             </Container>
-        </Container>
+            <ThemeChanger top={15} />
+        </Screen>
     )
 }
 

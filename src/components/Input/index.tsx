@@ -3,8 +3,9 @@ import { FaKey, FaUser, FaSearch } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
 
-import { Container } from '../../layout'
 import { IconContainer, Input as StyledInput, HideContainer } from './style'
+import { useTheme } from '../../providers'
+import { Container } from '../../layout'
 import { Props } from './dto'
 
 export const Input: React.FC<Props> = ({
@@ -18,10 +19,14 @@ export const Input: React.FC<Props> = ({
     setValue,
     disabled,
     pallete,
-    dark,
+    background,
+    boxShaddow,
     ...containerProps
 }) => {
     const [hide, setHide] = useState<boolean>(true)
+    const theme = useTheme()
+
+    const decorators = { pallete: pallete ?? theme.pallete[1] }
 
     const getIcon = (): React.ReactNode => {
         switch (icon) {
@@ -37,19 +42,25 @@ export const Input: React.FC<Props> = ({
     }
 
     return (
-        <Container {...containerProps} dark={dark} flexDirection='row'>
+        <Container
+            {...containerProps}
+            background={background ?? ['background', 1, theme.dark]}
+            boxShaddow={boxShaddow ?? 2}
+            flexDirection='row'
+            position='relative'
+        >
             {type === 'password' && (
-                <IconContainer pallete={pallete}>
+                <IconContainer {...decorators}>
                     <FaKey />
                 </IconContainer>
             )}
             {icon && (
-                <IconContainer pallete={pallete}>
+                <IconContainer {...decorators}>
                     {getIcon()}
                 </IconContainer>
             )}
             {customIcon && (
-                <IconContainer pallete={pallete}>
+                <IconContainer {...decorators}>
                     {customIcon}
                 </IconContainer>
             )}
@@ -61,10 +72,10 @@ export const Input: React.FC<Props> = ({
                 onClick={e => e.preventDefault()}
                 onChange={e => setValue(e.target.value)}
                 disabled={disabled}
-                dark={dark}
+                dark={theme.dark}
             />
             {type === 'password' && (
-                <HideContainer pallete={pallete}>
+                <HideContainer {...decorators}>
                     {hide
                         ? <IoMdEye onClick={() => setHide(!hide)} />
                         : <IoMdEyeOff onClick={() => setHide(!hide)} />

@@ -1,31 +1,47 @@
 import React, { createContext, useContext, useState } from 'react'
 
 import { INotifyProvider, CardType } from './dto'
-import { Uuid } from '../../frameworks'
+import { Container } from '../../layout'
+import { Text } from '../../components'
+import { useTheme } from '../theme'
 
 const NotifyContext = createContext({})
 
+
+
 export const NotifyProvider: React.FC<{ children: any }> = ({ children }) => {
-    const [cards, setCards] = useState<{ [k: string]: [string, CardType | undefined]  }>({})
+    const [cards, setCards] = useState<[string, CardType | undefined]>(['', undefined])
+    const [show, setShow] = useState<boolean>(false)
+    const [timeoutid, setTimeoutid] = useState<NodeJS.Timeout>(setTimeout(() => { }, 0))
+    const { dark } = useTheme()
 
-    const removeCard = (id: string) => {
-        const keepCards = { ...cards }
+    const getCardBackground = (t?: CardType) => {
+        switch (t) {
+            case 'success':
+                return '#339900'
 
-        delete keepCards[id]
+            case 'info':
+                return '#0dcaf0'
 
-        setCards(keepCards)
+            case 'warning':
+                return '#ffcc00'
+
+            default:
+                return '#cc3300'
+        }
     }
 
     const notify = (msg: string, type?: CardType) => {
-        const newCards = { ...cards }
+        console.log('hii');
 
-        const newCard = Uuid.generate()
+        setShow(true)
+        setCards([msg, type])
 
-        newCards[newCard] = [msg, type]
+        clearTimeout(timeoutid)
 
-        setTimeout(() => {
-            removeCard(newCard)
-        }, 3000)
+        const id = setTimeout(() => { setShow(false) }, 3000)
+
+        setTimeoutid(id)
     }
 
     return (
@@ -34,8 +50,34 @@ export const NotifyProvider: React.FC<{ children: any }> = ({ children }) => {
                 notify
             }}
         >
-            {children}
-        </NotifyContext.Provider>
+            <Container
+                position='relative'
+                display='block'
+            >
+                {children}
+                {show && (
+                    <Container
+                        background={getCardBackground(cards[1])}
+                        borderRadius={12}
+                        top={10}
+                        height='fit-content'
+                        minHeight={45}
+                        width='98%'
+                        left='1vw'
+                        position='absolute'
+                        onClick={() => setShow(false)}
+                    >
+                        <Text
+                            text={['background', 0, dark]}
+                            fontSize={18}
+                            fontWeight={600}
+                        >
+                            {cards[0]}
+                        </Text>
+                    </Container>
+                )}
+            </Container>
+        </NotifyContext.Provider >
     )
 }
 

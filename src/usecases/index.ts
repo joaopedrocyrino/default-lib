@@ -1,1 +1,2 @@
-export * from './DentalAppointment'
+export * from './app'
+export * from './dental'

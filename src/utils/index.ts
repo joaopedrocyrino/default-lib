@@ -1,1 +1,1 @@
-export * as styledComponentUtils from './styledComponent'
+export * as styledComponent from './styledComponent'

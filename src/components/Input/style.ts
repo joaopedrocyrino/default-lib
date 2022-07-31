@@ -1,10 +1,9 @@
 import styled from 'styled-components'
 
-import { styledComponentUtils } from '../../utils'
-import { textFormatter } from '../../utils/styledComponent'
+import { styledComponent } from '../../utils'
 import { InputProps, DecoratorsProps } from './dto'
 
-const { stringOrNumber, palleteFormatter } = styledComponentUtils
+const { stringOrNumber, palleteToColor } = styledComponent
 
 export const IconContainer = styled.div<DecoratorsProps>`
     height: 100%;
@@ -13,14 +12,14 @@ export const IconContainer = styled.div<DecoratorsProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: ${props => palleteFormatter(props.pallete)};
+    color: ${props => palleteToColor(props.pallete)};
 `
 
 export const HideContainer = styled.div<DecoratorsProps>`
     position: absolute;
     right: 10px;
     font-size: 22px;
-    color: ${props => palleteFormatter(props.pallete)};
+    color: ${props => palleteToColor(props.pallete)};
 `
 
 export const Input = styled.input<InputProps>`
@@ -29,8 +28,8 @@ export const Input = styled.input<InputProps>`
     height: 100%;
     border: none;
     background: none;
-    font-size: ${props => props.fontSize ? stringOrNumber(props.fontSize) : '16px'};
-    color: ${props => textFormatter({ dark: props.dark })};
+    font-size: ${props => stringOrNumber(props.fontSize ?? 16)};
+    color: ${props => palleteToColor(props.text ?? ['text', 1, props.dark])};
 
     &:focus {
         outline: none;

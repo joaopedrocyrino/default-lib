@@ -1,11 +1,11 @@
 import React from 'react'
 
 import { ContainerProps } from '../../layout'
-import { pallete } from '../../dto'
+import { color } from '../../dto/styles'
 
 export interface Props extends
     Omit<ContainerProps, 'children'>,
-    InputProps,
+    Omit<InputProps, 'dark'>,
     DecoratorsProps {
     icon?: 'search' | 'email' | 'user'
     customIcon?: React.ReactNode
@@ -17,11 +17,12 @@ export interface InputProps {
     value: string | number
     fontSize?: string | number
     type?: 'password' | 'text' | 'number'
+    text?: color
     inputmode?: 'text' | 'decimal' | 'tel' | 'search' | 'email' | 'numeric'
     disabled?: boolean
     dark?: boolean
 }
 
 export interface DecoratorsProps {
-    pallete?: pallete
+    pallete?: color
 }

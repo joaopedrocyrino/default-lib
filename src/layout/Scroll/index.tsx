@@ -17,7 +17,7 @@ export const Scroll: React.FC<Props> = ({
             flexDirection={flexDirection}
             scroll
         >
-            <Container {...props}>
+            <Container {...props} flexDirection={flexDirection} width='fit-content'>
                 {children}
             </Container>
         </Container>

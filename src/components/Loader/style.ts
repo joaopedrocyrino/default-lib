@@ -1,9 +1,9 @@
 import styled, { keyframes } from 'styled-components'
 
-import { styledComponentUtils } from '../../utils'
+import { styledComponent } from '../../utils'
 import { Props } from './dto'
 
-const { palleteFormatter } = styledComponentUtils
+const { palleteToColor } = styledComponent
 
 const rotate = keyframes`
   from {
@@ -26,13 +26,13 @@ export const Ring = styled.div<Props>`
     div {
         box-sizing: border-box;
         position: absolute;
-        width: ${props => props.size ? props.size - 16 : 64}px;
-        height: ${props => props.size ? props.size - 16 : 64}px;
-        margin: 8px;
-        border: 8px solid ${props => palleteFormatter(props.pallete)};
+        width: ${props => props.size ?? 40}px;
+        height: ${props => props.size ?? 40}px;
+        margin: ${props => props.size ? props.size / 10 : 4}px;
+        border: ${props => props.size ? props.size / 10 : 4}px solid ${props => palleteToColor(props.pallete)};
         border-radius: 50%;
         animation: ${rotate} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: ${props => palleteFormatter(props.pallete)} transparent transparent transparent;
+        border-color: ${props => palleteToColor(props.pallete)} transparent transparent transparent;
 
         &:nth-child(1) {
             animation-delay: -0.45s;

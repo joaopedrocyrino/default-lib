@@ -3,10 +3,16 @@ import React from 'react'
 import { Ring } from './style'
 import { Props } from './dto'
 
-export const Loader: React.FC<Props> = (props) => {
+import { useTheme } from '../../providers'
+
+export const Loader: React.FC<Props> = ({ pallete, ...props }) => {
+    const theme = useTheme()
 
     return (
-        <Ring  {...props}>
+        <Ring
+            {...props}
+            pallete={pallete ?? theme.pallete[0]}
+        >
             <div />
             <div />
             <div />

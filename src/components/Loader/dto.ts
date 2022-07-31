@@ -1,6 +1,6 @@
-import { pallete } from '../../dto'
+import { color } from '../../dto/styles'
 
 export interface Props {
     size?: number
-    pallete?: pallete
+    pallete?: color
 }
