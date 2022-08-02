@@ -27,9 +27,10 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
             setMonthsToRender(months.slice(offset).map((m, i) => [m, i + offset]))
         }
 
-        // if (past || now.month() < selectedDate.month()) {
-        //     setDays()
-        // }
+        if (past || now.month() < selectedDate.month()) {
+            const daysToRender = selectedDate.daysInMonth()
+            setDays(selectedDate.daysInMonth())
+        }
     }, [selectedDate])
 
     useEffect(() => {
@@ -92,11 +93,11 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
                                         width={45}
                                         selected={selectedDate.year() === y}
                                         onClick={() => {
-                                            const newDate = moment(selectedDate).year(y)
                                             const now = moment()
+                                            const newDate = moment(selectedDate).year(y)
 
                                             setSelectedDate(now.year() === y
-                                                ? newDate.date(now.date()).startOf('D')
+                                                ? newDate.date(now.date()).month(now.month()).startOf('D')
                                                 : newDate.startOf('y')
                                             )
                                         }}
@@ -119,7 +120,7 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
                                             const newDate = moment(selectedDate).month(m[1])
                                             const now = moment()
 
-                                            setSelectedDate(now.month() === m[1]
+                                            setSelectedDate(now.month() === m[1] && now.year() === selectedDate.year()
                                                 ? newDate.date(now.date()).startOf('D')
                                                 : newDate.startOf('M')
                                             )
@@ -138,12 +139,6 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
                     </Scroll>
                 }
             </Container>
-            {/* <Scroll
-                flexDirection='row'
-                height={80}
-            >
-
-            </Scroll> */}
         </Container>
     )
 }
