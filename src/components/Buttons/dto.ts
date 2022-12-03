@@ -32,6 +32,8 @@ export interface ButtonProps {
     left?: string | number
     right?: string | number
 
+    padding?: string | number
+
     zIndex?: number;
 
     disabled?: boolean

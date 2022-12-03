@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { useNotify, useTheme, useAuth, useRouter } from '../../providers'
-import { Input, Button, ThemeChanger } from '../../components'
+import { Input, Button, ThemeChanger, Title } from '../../components'
 import { Container } from '../../layout'
 import { Screen } from '../Screen'
 import { Props } from './dto'
@@ -36,10 +36,10 @@ export const Login: React.FC<Props> = ({
             setLoading(true)
 
             onLogin(user, password)
-                .then(token => { 
+                .then(token => {
                     setToken(token)
                     setPath('home')
-                 })
+                })
                 .catch(() => notify('Erro ao logar. Tente novamente'))
                 .finally(() => setLoading(false))
         } else {
@@ -48,7 +48,7 @@ export const Login: React.FC<Props> = ({
     }
 
     return (
-        <Screen {...containerProps} justify='center'>
+        <Screen {...containerProps} background={['background', 0, dark]} justify='center'>
             <Container
                 justify='center'
                 height={450}
@@ -57,6 +57,11 @@ export const Login: React.FC<Props> = ({
                 gap={30}
                 {...containerProps}
             >
+                <Title
+                    text={['text', 0, dark]}
+                >
+                    Bem Vindo
+                </Title>
                 <Input
                     value={user}
                     setValue={setUser}
@@ -71,11 +76,12 @@ export const Login: React.FC<Props> = ({
                     placeholder='Senha'
                     {...inputProps}
                     type='password'
+                    border={['border', 0, dark]}
                 />
                 {forgotPassword && (
                     <Container {...containerProps} height={20} align='flex-end'>
                         <Button
-                            background={['background', 0, dark]}
+                            background={['background', 2, dark]}
                             onClick={forgotPassword}
                             width='fit-content'
                             text={pallete[0]}
@@ -89,6 +95,7 @@ export const Login: React.FC<Props> = ({
                     loading={loading}
                     onClick={login}
                     borderRadius={6}
+                    text='#FFF'
                 >
                     Login
                 </Button>

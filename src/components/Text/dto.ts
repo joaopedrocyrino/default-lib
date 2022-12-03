@@ -11,4 +11,5 @@ export interface TextProps {
   text?: color
   dark?: boolean
   padding?: string | number
+  margin?: string | number
 }

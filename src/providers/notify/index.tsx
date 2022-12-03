@@ -1,9 +1,12 @@
 import React, { createContext, useContext, useState } from 'react'
 
-import { INotifyProvider, CardType } from './dto'
+import { Icon, Text } from '../../components'
 import { Container } from '../../layout'
-import { Text } from '../../components'
 import { useTheme } from '../theme'
+import { CardType, INotifyProvider } from './dto'
+
+import { BsCheckCircle, BsXCircle } from 'react-icons/bs'
+import { VscInfo, VscWarning } from 'react-icons/vsc'
 
 const NotifyContext = createContext({})
 
@@ -15,19 +18,31 @@ export const NotifyProvider: React.FC<{ children: any }> = ({ children }) => {
     const [timeoutid, setTimeoutid] = useState<NodeJS.Timeout>(setTimeout(() => { }, 0))
     const { dark } = useTheme()
 
-    const getCardBackground = (t?: CardType) => {
+    const getCardData = (t?: CardType) => {
         switch (t) {
             case 'success':
-                return '#339900'
+                return {
+                    color: '#339900',
+                    icon: BsCheckCircle
+                }
 
             case 'info':
-                return '#0dcaf0'
+                return {
+                    color: '#0dcaf0',
+                    icon: VscInfo
+                }
 
             case 'warning':
-                return '#ffcc00'
+                return {
+                    color: '#ffcc00',
+                    icon: VscWarning
+                }
 
             default:
-                return '#cc3300'
+                return {
+                    color: '#cc3300',
+                    icon: BsXCircle
+                }
         }
     }
 
@@ -57,19 +72,22 @@ export const NotifyProvider: React.FC<{ children: any }> = ({ children }) => {
                 {children}
                 {show && (
                     <Container
-                        background={getCardBackground(cards[1])}
-                        borderRadius={12}
-                        top={10}
+                        background={getCardData(cards[1]).color}
+                        borderRadius={6}
+                        bottom={10}
                         height='fit-content'
                         minHeight={45}
-                        width='98%'
-                        left='1vw'
+                        width='fit-content'
+                        right='1vw'
                         position='absolute'
+                        padding='0 1rem'
                         onClick={() => setShow(false)}
+                        flexDirection='row'
                     >
+                        <Icon Icon={getCardData(cards[1]).icon} iconColor={['background', 0, dark]} style={{ marginRight: '0.25rem'}} />
                         <Text
                             text={['background', 0, dark]}
-                            fontSize={18}
+                            fontSize={14}
                             fontWeight={600}
                         >
                             {cards[0]}

@@ -20,7 +20,7 @@ export interface ContainerProps {
     text?: color
     dark?: boolean
 
-    display?: 'flex' | 'block' | 'none'
+    display?: 'flex' | 'block' | 'grid' | 'none'
     scroll?: boolean
 
     flexDirection?: 'row' | 'column'
@@ -30,7 +30,7 @@ export interface ContainerProps {
     flex?: number
 
     borderRadius?: string | number
-    border?: string | color
+    border?: color
 
     boxShaddow?: shaddow
 
@@ -41,6 +41,10 @@ export interface ContainerProps {
     bottom?: string | number
     left?: string | number
     right?: string | number
+
+    padding?: string | number
+    margin?: string | number
+    gridTemplateColumns?: string
 
     zIndex?: number;
 }

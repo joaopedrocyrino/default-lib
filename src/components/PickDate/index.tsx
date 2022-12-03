@@ -10,12 +10,21 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 
 const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
+const toUpperCase = (word: string): string => word[0].toUpperCase() + word.substring(1)
+
+const formatWord = (month: string): string => {
+    month = month.charAt(0).toUpperCase() + month.slice(1)
+    month = month.substring(0, 3)
+    return month
+}
+
 export const PickDate: React.FC<Props> = ({ past, years }) => {
     const [selectedDate, setSelectedDate] = useState<moment.Moment>(moment())
     const [monthsToRender, setMonthsToRender] = useState<Array<[string, number]>>([])
     const [yearsToRender, setYearsToRender] = useState<number[]>([])
     const [expand, setExpand] = useState<boolean>(false)
-    const [days, setDays] = useState<Array<{ name: string, number: number }>>([])
+    // const [days, setDays] = useState<Array<{ name: string, number: number }>>([])
+    const [days, setDays] = useState<Array<{ date: number, dayOfWeek: string }>>([])
 
     useEffect(() => {
         const now = moment()
@@ -27,10 +36,22 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
             setMonthsToRender(months.slice(offset).map((m, i) => [m, i + offset]))
         }
 
-        if (past || now.month() < selectedDate.month()) {
-            const daysToRender = selectedDate.daysInMonth()
-            setDays(selectedDate.daysInMonth())
-        }
+        // if (past || now.month() < selectedDate.month()) {
+        //     const daysToRender = selectedDate.daysInMonth()
+        //     setDays(selectedDate.daysInMonth())
+        // }
+    }, [selectedDate])
+
+    useEffect(() => {
+        const now = moment()
+
+        let daysInMonth = Array.from(Array(moment(`${selectedDate.format('YYYY')}-${selectedDate.format('MM')}`).daysInMonth()), (_, i) => i + 1);
+        daysInMonth = selectedDate.format('MM') === now.format('MM') ? daysInMonth.filter(day => day >= Number(now.format('DD'))) : daysInMonth
+        const daysOfTheWeek: Array<{ date: number, dayOfWeek: string }> = daysInMonth.map(day => {
+            const d = moment(`${selectedDate.format('YYYY')}-${selectedDate.format('MM')}-${day}`).locale('pt-br').format('dddd')
+            return { date: day, dayOfWeek: d }
+        })
+        setDays(daysOfTheWeek)
     }, [selectedDate])
 
     useEffect(() => {
@@ -51,7 +72,7 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
         }
 
         setYearsToRender(yearsToShow)
-    })
+    }, [])
 
     return (
         <Container
@@ -65,7 +86,7 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
                 gap={10}
             >
                 <Text fontSize={20} onClick={() => { setExpand(!expand) }}>
-                    {selectedDate.locale('pt-br').format('MMMM YYYY').toUpperCase()}
+                    {toUpperCase(selectedDate.locale('pt-br').format('MMMM YYYY'))}
                 </Text>
                 {expand
                     ? <IoIosArrowUp onClick={() => setExpand(false)} />
@@ -89,8 +110,6 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
                                     <SelectCard
                                         key={i}
                                         text={y}
-                                        height={20}
-                                        width={45}
                                         selected={selectedDate.year() === y}
                                         onClick={() => {
                                             const now = moment()
@@ -113,8 +132,6 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
                                     <SelectCard
                                         key={i}
                                         text={m[0]}
-                                        height={30}
-                                        width={70}
                                         selected={selectedDate.month() === m[1]}
                                         onClick={() => {
                                             const newDate = moment(selectedDate).month(m[1])
@@ -133,9 +150,24 @@ export const PickDate: React.FC<Props> = ({ past, years }) => {
                     :
                     <Scroll
                         flexDirection='row'
-                        height={80}
+                        gap={10}
                     >
+                        {days?.map((d, i) => (
+                            <SelectDayCard
+                                key={i}
+                                day={d}
+                                selected={selectedDate.date() === d.date}
+                                onClick={() => {
+                                    const now = moment()
+                                    const newDate = moment(selectedDate).date(d.date)
 
+                                    setSelectedDate(now.date() === d.date
+                                        ? newDate.date(now.date()).month(now.month()).startOf('D')
+                                        : newDate.startOf('d')
+                                    )
+                                }}
+                            />
+                        ))}
                     </Scroll>
                 }
             </Container>
@@ -156,13 +188,53 @@ const SelectCard: React.FC<{
         <Container
             height={height ?? 30}
             width={width ?? 60}
-            background={selected ? ['background', 2, dark] : undefined}
+            background={selected ? pallete[0] : undefined}
             border={pallete[0]}
             borderRadius={6}
             justify='center'
             onClick={onClick}
         >
-            <Text text={selected ? pallete[0] : ['text', 2, dark]}>{text}</Text>
+            <Text fontFamily='Inter' fontWeight={400} text={selected ? '#FFF' : pallete[0]}>{text}</Text>
+        </Container>
+    )
+}
+
+const SelectDayCard: React.FC<{
+    onClick: () => void,
+    day: {
+        dayOfWeek: string,
+        date: number
+    },
+    selected?: boolean,
+    past?: boolean
+}> = ({ onClick, day, selected }) => {
+    const { pallete, dark } = useTheme()
+
+    return (
+        <Container
+            onClick={onClick}
+            width='50px'
+            height='70px'
+            background={selected ? pallete[0] : ['background', 4, dark]}
+            justify='space-between'
+            borderRadius={6}
+        >
+            <Text
+                fontFamily='Inter'
+                fontWeight={400}
+                margin='0.75rem 0 0 0'
+                text={selected ? '#FFF' : ['text', 2, dark]}
+            >
+                {formatWord(day.dayOfWeek)}
+            </Text>
+            <Text
+                fontFamily='Inter'
+                fontWeight={600}
+                margin='0 0 0.75rem 0'
+                text={selected ? '#FFF' : ['text', 2, dark]}
+            >
+                {day.date}
+            </Text>
         </Container>
     )
 }

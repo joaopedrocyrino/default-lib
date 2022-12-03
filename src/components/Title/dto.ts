@@ -1,3 +1,5 @@
+import { color } from '../../dto/styles'
+
 export interface ThemeColors {
   light: {
     background: string
@@ -15,9 +17,10 @@ export interface TitleProps {
   fontStyle?: string
   fontSize?: number
   lineHeight?: number
-  color?: string
+  text?: color
   margin?: string | number
   themeColors?: ThemeColors
+  dark?: boolean
 }
 
 export type TitleContainerProps = TitleProps & {

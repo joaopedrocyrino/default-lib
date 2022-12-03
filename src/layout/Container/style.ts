@@ -10,6 +10,7 @@ const {
 } = styledComponent
 
 export const Container = styled.div<ContainerProps>`
+    box-sizing: border-box;
     width: ${props => stringOrNumber(props.width) ?? '100%'};
     ${props => stringOrNumber(props.maxWidth, 'max-width')}
     ${props => stringOrNumber(props.minWidth, 'min-width')}
@@ -30,7 +31,7 @@ export const Container = styled.div<ContainerProps>`
     ${props => stringOrNumber(`${props.flex}`, 'flex')}
 
     ${props => stringOrNumber(props.borderRadius, 'border-radius')}
-    ${props => stringOrNumber(props.border ? `1px solid ${palleteToColor(props.border)}` : undefined, 'border-radius')}
+    ${props => stringOrNumber(props.border ? `1px solid ${palleteToColor(props.border)}` : undefined, 'border')}
 
     ${props => stringOrNumber(props.background ? palleteToColor(props.background) : undefined, 'background-color')}
 
@@ -46,6 +47,10 @@ export const Container = styled.div<ContainerProps>`
     ${props => stringOrNumber(props.left, 'left')}
 
     ${props => stringOrNumber(props.zIndex, 'z-index')}
+    ${props => stringOrNumber(props.padding, 'padding')}
+    ${props => stringOrNumber(props.margin, 'margin')}
+
+    grid-template-columns: ${props => props.display === 'grid' ? props.gridTemplateColumns : undefined};
 
     transition: all ease-in .1s;
 `

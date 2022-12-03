@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { FaKey, FaUser, FaSearch } from 'react-icons/fa'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { FaSearch } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md'
-import { IoMdEye, IoMdEyeOff } from 'react-icons/io'
+import { RiDoorLockLine, RiUser3Line } from 'react-icons/ri'
 
-import { IconContainer, Input as StyledInput, HideContainer } from './style'
-import { useTheme } from '../../providers'
 import { Container } from '../../layout'
+import { useTheme } from '../../providers'
 import { Props } from './dto'
+import { HideContainer, IconContainer, Input as StyledInput } from './style'
 
 export const Input: React.FC<Props> = ({
     placeholder,
@@ -21,12 +22,13 @@ export const Input: React.FC<Props> = ({
     pallete,
     background,
     boxShaddow,
+    border,
     ...containerProps
 }) => {
     const [hide, setHide] = useState<boolean>(true)
     const theme = useTheme()
 
-    const decorators = { pallete: pallete ?? theme.pallete[1] }
+    const decorators = { pallete: pallete ?? theme.pallete[1], dark: theme.dark }
 
     const getIcon = (): React.ReactNode => {
         switch (icon) {
@@ -34,7 +36,7 @@ export const Input: React.FC<Props> = ({
                 return <MdEmail />
 
             case 'user':
-                return <FaUser />
+                return <RiUser3Line size={22} />
 
             default:
                 return <FaSearch />
@@ -44,14 +46,14 @@ export const Input: React.FC<Props> = ({
     return (
         <Container
             {...containerProps}
-            background={background ?? ['background', 1, theme.dark]}
-            boxShaddow={boxShaddow ?? 2}
+            background={background ?? ['background', 2, theme.dark]}
             flexDirection='row'
             position='relative'
+            border={border ?? ['border', 0, theme.dark]}
         >
             {type === 'password' && (
                 <IconContainer {...decorators}>
-                    <FaKey />
+                    <RiDoorLockLine size={22} />
                 </IconContainer>
             )}
             {icon && (
@@ -77,8 +79,8 @@ export const Input: React.FC<Props> = ({
             {type === 'password' && (
                 <HideContainer {...decorators}>
                     {hide
-                        ? <IoMdEye onClick={() => setHide(!hide)} />
-                        : <IoMdEyeOff onClick={() => setHide(!hide)} />
+                        ? <AiOutlineEye onClick={() => setHide(!hide)} />
+                        : <AiOutlineEyeInvisible onClick={() => setHide(!hide)} />
                     }
                 </HideContainer>
             )}

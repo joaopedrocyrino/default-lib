@@ -12,6 +12,7 @@ const Button = styled.button<ButtonProps>`
   ${props => stringOrNumber(props.maxHeight, 'max-height')}
   ${props => stringOrNumber(props.minHeight, 'min-height')}
 
+  font-family: 'Inter';
   font-size: ${props => stringOrNumber(props.fontSize ?? 16)};
   color: ${props => palleteToColor(props.text ?? ['background', 0, props.dark])};
 
@@ -26,6 +27,8 @@ const Button = styled.button<ButtonProps>`
   ${props => stringOrNumber(props.top, 'top')}
   ${props => stringOrNumber(props.right, 'right')}
   ${props => stringOrNumber(props.left, 'left')}
+
+  ${props => stringOrNumber(props.padding, 'padding')}
 
   ${props => stringOrNumber(props.zIndex, 'z-index')}
 

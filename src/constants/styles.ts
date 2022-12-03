@@ -1,4 +1,4 @@
-import { background, colorPallete, text } from "../dto/styles"
+import { background, border, colorPallete, text } from "../dto/styles"
 
 export const boxShaddow = [
     'rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset',
@@ -17,25 +17,32 @@ export const colors: {
     colorPalletes: { [k: string]: colorPallete }
     background: background
     text: text
+    border: border
 } = {
     background: [
-        { dark: '#000000', light: '#FFFFFF' },
-        { dark: '#262626', light: '#fafafa' },
-        { dark: '#434343', light: '#f5f5f5' },
-        { dark: '#555555', light: '#f0f0f0' },
-        { dark: '#7b7b7b', light: '#dedede' },
-        { dark: '#9d9d9d', light: '#c2c2c2' },
-        { dark: '#c4c4c4', light: '#979797' }
+        { dark: '#0F172A', light: '#F7F7F7' },
+        { dark: '#1E293B', light: '#EBF1F9' },
+        { dark: '#374151', light: '#FFFFFF' },
+        { dark: '#9BA0A8', light: '#DDDDDD' },
+        { dark: '#E2E8F0', light: '#FFFFFF' },
+        { dark: '#E0EDFD', light: '#E0EDFD' },
     ],
     text: [
-        { dark: '#FFFFFF', light: '#000000' },
-        { dark: '#e9e9e9', light: '#434343' },
-        { dark: '#c4c4c4', light: '#7b7b7b' },
+        { dark: '#FFFFFF', light: '#272C32' },
+        { dark: '#E2E8F0', light: '#272C32' },
+        { dark: '#9CA3AF', light: '#AAAAAA' },
+        { dark: '#576774', light: '#576774' },
+        { dark: '#CED1D7', light: '#AAAAAA' },
+        { dark: '#272C32', light: '#272C32' },
+    ],
+    border: [
+        { dark: '#4B5563', light: '#DEDEDE' }
     ],
     colorPalletes: {
         1: ['#5300e8', '#6002ee', '#7e3ff2', '#9965f4', '#b794f6', '#d4bff9'],
         2: ['#61d800', '#75e900', '#90ee02', '#aaf255', '#c6f68d', '#defabb'],
         3: ['#039BE5', '#03A9F4', '#29B6F6', '#4FC3F7', '#81D4FA', '#B3E5FC'],
-        4: ['#ba00e5', '#cd00ea', '#d602ee', '#df55f2', '#e98df5', '#f2bcf8']
+        4: ['#ba00e5', '#cd00ea', '#d602ee', '#df55f2', '#e98df5', '#f2bcf8'],
+        5: ['#084594', '#134E99', '#134E99', '#1E569E', '#6D95C9', '#D1E4FD']
     }
 }

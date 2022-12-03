@@ -18,7 +18,7 @@ export const Button: React.FC<Props> = ({ children, disabled, loading, backgroun
       {loading ?
         <Loader
           size={20}
-          pallete={['background', 0, theme.dark]}
+          pallete={props.text ?? ['background', 0, theme.dark]}
         />
         : children
       }

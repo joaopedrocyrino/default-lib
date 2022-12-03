@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { idToBoxSaddow, palleteToColor, stringOrNumber } from '../../utils/styledComponent'
+import { idToBoxSaddow, palleteToColor, stringOrNumber } from '../../utils/styledComponent';
 
 import { ButtonProps } from './dto'
 

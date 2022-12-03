@@ -6,13 +6,17 @@ import { useTheme } from '../../providers'
 import { Props } from './dto'
 import { Container } from '../../layout'
 import { PickDate } from '../PickDate'
+import { PickTime } from '../PickTime'
+import { DailyAppointmentCard } from '../DailyAppointmentCard'
 
 export const Agenda: React.FC<Props> = () => {
-  const { } = useTheme()
+  const theme = useTheme()
 
   return (
     <Container>
       <PickDate />
+      {/* <PickTime value={['']} setValue={() => {}} /> */}
+      <DailyAppointmentCard />
     </Container>
   )
 }

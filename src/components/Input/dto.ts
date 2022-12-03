@@ -25,4 +25,6 @@ export interface InputProps {
 
 export interface DecoratorsProps {
     pallete?: color
+    text?: color
+    dark?: boolean
 }
